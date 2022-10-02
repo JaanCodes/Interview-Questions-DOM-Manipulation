@@ -23,19 +23,20 @@ async function fetchUserData(id) {
 const followers = document.querySelector(".followers");
 
 async function main() {
-  // fetch user ids
+  // 1. Fetch user ids
   const userIds = await fetchFollowerIds();
 
-  // get user data in promise
+  // 2. Map user ids to promises
   const user = userIds.map((id) => fetchUserData(id));
 
-  // wait for user data
+  // 3. Wait for user data inside promises
   const usersData = await Promise.all(user);
 
-  // turn user data into html
+  // 4. Turn user data into html
   followers.innerHTML = usersData.map((user) => userHtml(user)).join("");
 }
 
+// HTML template
 function userHtml(user) {
   return `<div class="profile">
   <img class="profile__avatar" src=${user.avatar} />
